@@ -19,7 +19,6 @@ from rest_framework import routers
 
 from . import views
 import os
-from rest_framework.reverse import reverse
 from rest_framework.decorators import api_view
 from rest_framework.response import Response
 
