@@ -28,7 +28,14 @@ class LeaderboardSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 class UserSerializer(serializers.ModelSerializer):
-    profile = ProfileSerializer(read_only=True)
+    profile = serializers.SerializerMethodField()
+
+    def get_profile(self, obj):
+        try:
+            return ProfileSerializer(obj.profile).data
+        except Exception:
+            return None
+
     class Meta:
         model = User
         fields = ['id', 'username', 'email', 'first_name', 'last_name', 'profile']
