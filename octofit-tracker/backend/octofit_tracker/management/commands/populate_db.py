@@ -1,12 +1,18 @@
-from django.core.management.base import BaseCommand
-
+from django.core.management.base import BaseCommand, CommandError
+from django.conf import settings
 from django.contrib.auth.models import User
 from octofit_tracker.models import Team, Profile, Activity, Workout, Leaderboard
 
 class Command(BaseCommand):
     help = 'Populate the octofit_db database with test data'
 
+    def add_arguments(self, parser):
+        parser.add_argument('--force', action='store_true', help='Required flag to confirm data deletion and repopulation.')
+
     def handle(self, *args, **options):
+        if not settings.DEBUG and not options['force']:
+            raise CommandError('This command can only run in DEBUG mode or with --force flag. Use --force to override.')
+
         # Delete existing data
 
         Activity.objects.all().delete()
