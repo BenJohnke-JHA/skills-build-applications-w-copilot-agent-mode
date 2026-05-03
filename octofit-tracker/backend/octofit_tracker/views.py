@@ -1,4 +1,4 @@
-from rest_framework import viewsets, routers
+from rest_framework import viewsets
 from django.contrib.auth.models import User
 from .models import Team, Profile, Activity, Workout, Leaderboard
 from .serializers import TeamSerializer, ProfileSerializer, ActivitySerializer, WorkoutSerializer, LeaderboardSerializer, UserSerializer
